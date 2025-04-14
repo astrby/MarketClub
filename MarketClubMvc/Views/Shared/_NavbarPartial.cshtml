@@ -1,0 +1,38 @@
+﻿@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Mvc.Localization;
+
+@inject IHttpContextAccessor _httpContext;
+@inject IViewLocalizer Localizer;
+
+@{
+    var username = _httpContext.HttpContext!.Session.GetString("username");
+    var role = _httpContext.HttpContext.Session.GetString("userRole");
+}
+
+<div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
+    <partial name="~/Views/Shared/_CartPartial.cshtml"/>
+    @if (username != null)
+    {
+        <div>
+            @if (role == "Admin")
+            {
+
+                <a class="btn" asp-controller="Admin" asp-action="NewProduct">@Localizer["NewProductButton"]</a>
+                <a class="btn" asp-controller="Admin" asp-action="ManageProducts">@Localizer["ManageProductsButton"]</a>
+            }
+            else if (role == "User")
+            {
+            }
+            <a asp-action="Orders" asp-controller="Order" class="btn">@Localizer["MyOrdersButton"]</a>
+            <a class="btn" asp-action="EditAccount" asp-controller="Account" asp-route-username="@username">@username</a>
+            <a class="btn btn-info" asp-action="Logout" asp-controller="Account">@Localizer["LogoutButton"]</a>
+        </div>
+    }
+    else
+    {
+        <div>
+            <a class="btn btn-info" asp-action="Login" asp-controller="Account">@Localizer["LoginButton"]</a>
+            <a class="btn btn-info" asp-action="Signup" asp-controller="Account">@Localizer["SignupButton"]</a>
+        </div>
+    }
+</div>

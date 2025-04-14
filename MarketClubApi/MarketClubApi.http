@@ -1,0 +1,6 @@
+@MarketClubApi_HostAddress = http://localhost:5075
+
+GET {{MarketClubApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

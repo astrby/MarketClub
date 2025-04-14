@@ -1,0 +1,64 @@
+﻿@model IEnumerable<MarketClubMvc.Models.Product>
+@using Microsoft.AspNetCore.Mvc.Localization;
+
+@inject IViewLocalizer Localizer;
+
+@{
+    ViewData["Title"] = "ManageProducts";
+}
+
+<h1>@Localizer["ManageProductsTitle"]</h1>
+
+<p>
+    <a asp-action="NewProduct" asp-controller="Admin">@Localizer["CreateNewTitle"]</a>
+</p>
+<table class="table">
+    <thead class="text-center">
+        <tr>
+            <th>
+                @Localizer["IdTitle"]
+            </th>
+            <th>
+                @Localizer["NameTitle"]
+            </th>
+            <th>
+                @Localizer["DescriptionTitle"]
+            </th>
+            <th>
+                @Localizer["PriceTitle"]
+            </th>
+            <th>
+                @Localizer["ImageTitle"]
+            </th>
+            <th>
+                @Localizer["ActionTitle"]
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody class="text-center">
+    @foreach (var item in Model) {
+        <tr>
+            <td class="align-middle">
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td class="align-middle">
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td class="align-middle">
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td class="align-middle">
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td class="align-middle">
+                <img src="@item.ImageUri?v=@DateTime.Now.Ticks"  style="height:5rem; width:5rem"/>
+            </td>
+            <td class="col-2">
+                <a class="btn btn-info w-100" asp-action="EditProduct" asp-controller="Admin" asp-route-id="@item.Id">@Localizer["EditButton"]</a>
+                <a class="btn btn-danger w-100 mt-1" asp-action="DeleteProduct" asp-controller="Admin" asp-route-id="@item.Id">@Localizer["DeleteButton"]</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

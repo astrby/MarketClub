@@ -1,0 +1,61 @@
+﻿@model IEnumerable<MarketClubMvc.Models.Order>
+@using Microsoft.AspNetCore.Mvc.Localization;
+
+@inject IViewLocalizer Localizer;
+
+@{
+    ViewData["Title"] = "Orders";
+    int index = 0;
+}
+
+<h1>@Localizer["OrdersTitle"]</h1>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Localizer["IdTitle"]
+                </th>
+                <th>
+                    @Localizer["ShippingTitle"]
+                </th>
+                <th>
+                    @Localizer["PaymentMethodTitle"]
+                </th>
+                <th>
+                    @Localizer["TotalTitle"]
+                </th>
+                <th>
+                    @Localizer["TransactionIdTitle"]
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        #@Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Shipping)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PaymentMethod)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Total)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TransactionId)
+                    </td>
+                    <td>
+                        <a asp-controller="Order" asp-action="GetOrder" asp-route-id="@item.Id">@Localizer["Details"]</a>
+                    </td>
+                </tr>      
+            index = index++;
+    }
+        </tbody>
+    </table>
+</div>

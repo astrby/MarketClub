@@ -1,0 +1,62 @@
+﻿@model MarketClubMvc.Models.ModelsDto.SignupDto
+@using Microsoft.AspNetCore.Mvc.Localization;
+
+@inject IViewLocalizer Localizer;
+
+@{
+    ViewData["Title"] = "Signup";
+}
+
+<h1 class="text-center">@Localizer["SignupTitle"]</h1>
+<hr/>
+<div class="container">
+    <div class="row justify-content-center text-center">
+        <div class="col-8 col-md-4 justify-content-center">
+            <form asp-action="Signup">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="FirstName" class="control-label fw-bold">@Localizer["FirstNameTitle"]</label>
+                    <input asp-for="FirstName" class="form-control mt-2 text-center" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-3">
+                    <label asp-for="LastName" class="control-label fw-bold">@Localizer["LastNameTitle"]</label>
+                    <input asp-for="LastName" class="form-control mt-2 text-center" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-3">
+                    <label asp-for="Address" class="control-label fw-bold">@Localizer["AddressTitle"]</label>
+                    <input asp-for="Address" class="form-control mt-2 text-center" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-3">
+                    <label asp-for="Username" class="control-label fw-bold">@Localizer["UsernameTitle"]</label>
+                    <input asp-for="Username" class="form-control mt-2 text-center" />
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-3">
+                    <label asp-for="Email" class="control-label fw-bold">@Localizer["EmailTitle"]</label>
+                    <input asp-for="Email" class="form-control mt-2 text-center" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-3">
+                    <label asp-for="Password" class="control-label fw-bold">@Localizer["PasswordTitle"]</label>
+                    <input asp-for="Password" class="form-control mt-2 text-center" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-3">
+                    <label asp-for="PhoneNumber" class="control-label fw-bold">@Localizer["PhoneNumberTitle"]</label>
+                    <input asp-for="PhoneNumber" class="form-control mt-2 text-center" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group text-center mt-4">
+                    <input type="submit" value="@Localizer["SubmitButton"]" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

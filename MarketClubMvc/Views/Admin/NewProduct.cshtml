@@ -1,0 +1,47 @@
+﻿@model MarketClubMvc.Models.ModelsDto.ProductDtoForm
+@using Microsoft.AspNetCore.Mvc.Localization;
+
+@inject IViewLocalizer Localizer;
+
+@{
+    ViewData["Title"] = "NewProduct";
+}
+
+<h1 class="text-center">@Localizer["NewProductTitle"]</h1>
+<hr />
+<div class="container">
+    <div class="row justify-content-center text-center">
+        <div class="col-8 col-md-4">
+            <form asp-action="NewProduct" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label mt-3 fw-bold">@Localizer["NameTitle"]</label>
+                    <input asp-for="Name" class="form-control mt-2 text-center" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label mt-3 fw-bold">@Localizer["DescriptionTitle"]</label>
+                    <input asp-for="Description" class="form-control mt-2 text-center" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Price" class="control-label mt-3 fw-bold">@Localizer["PriceTitle"]</label>
+                    <input asp-for="Price" class="form-control mt-2 text-center" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Image" class="control-label mt-3 fw-bold">@Localizer["ImageTitle"]</label>
+                    <input type="file" asp-for="Image" class="form-control mt-2" />
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-4 text-center">
+                    <input type="submit" value="@Localizer["CreateButton"]" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

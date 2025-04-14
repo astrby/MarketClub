@@ -1,0 +1,55 @@
+﻿@model MarketClubMvc.Models.Product
+@using Microsoft.AspNetCore.Mvc.Localization;
+
+@inject IViewLocalizer Localizer;
+
+@{
+    ViewData["Title"] = "EditProduct";
+}
+
+<h1 class="text-center">@Localizer["EditProductTitle"]</h1>
+
+<hr />
+
+<div class="container">
+    <div class="row justify-content-center text-center">
+        <div class="col-8 col-md-4">
+            <form asp-action="EditProductConfirm" asp-controller="Admin" asp-route-id="@Model.Id" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <input asp-for="Id" class="form-control" type="hidden" readonly />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label mt-3 fw-bold">@Localizer["NameTitle"]</label>
+                    <input asp-for="Name" class="form-control mt-2 text-center" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label mt-3 fw-bold">@Localizer["DescriptionTitle"]</label>
+                    <input asp-for="Description" class="form-control mt-2 text-center" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Price" class="control-label mt-3 fw-bold">@Localizer["PriceTitle"]</label>
+                    <input asp-for="Price" class="form-control mt-2 text-center" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input asp-for="ImageUri" class="form-control" type="hidden" readonly/>
+                </div>
+                <div class="form-group mt-3">
+                    <label class="mt-2 mb-2 fw-bold">@Localizer["ImageTitle"]</label>
+                    <br/>
+                    <input type="file" name="image"/>
+                </div>
+                <div class="form-group mt-5 text-center">
+                    <input type="submit" value="@Localizer["SaveButton"]" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

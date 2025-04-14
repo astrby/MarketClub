@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Market Club</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/MarketClubMvc.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-controller="Product" asp-action="AllProducts">Market Club</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <partial name="~/Views/Shared/_NavbarPartial.cshtml"/>
+                <div class="d-flex justify-content-end">
+                    <a class="btn btn-sm text-black ms-4" asp-action="ChangeLanguage" asp-controller="Home" asp-route-lang="es">ES</a>
+                    <a class="btn btn-sm text-black" asp-action="ChangeLanguage" asp-controller="Home" asp-route-lang="en">EN</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        @{
+            var successMessage = TempData["successMessage"]?.ToString();
+            var errorMessage = TempData["errorMessage"]?.ToString();
+        }
+        @if (!string.IsNullOrWhiteSpace(@successMessage))
+        {
+            {
+                <div class="alert alert-success row" id="alert" style="position: fixed; z-index: 9999; width: 75%">
+                    <div class="col-11">
+                        @TempData["successMessage"]
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"/>
+                </div>
+            }
+        }
+        @if (!string.IsNullOrWhiteSpace(errorMessage))
+        {
+            {
+                <div class="alert alert-danger row mx-auto" id="alert" style="position: fixed; z-index: 9999; width: 75%">
+                    <div class="col-11">
+                        @TempData["errorMessage"]
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"/>
+                </div>
+            }
+        }
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2025 - MarketClubMvc 
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/js/alert.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,48 @@
+﻿@model MarketClubMvc.Models.Order
+@using Microsoft.AspNetCore.Mvc.Localization;
+
+@inject IViewLocalizer Localizer;
+
+@{
+    ViewData["Title"] = "Order";
+    var index = 1;
+}
+
+<h1 class="text-center">@Localizer["OrderTitle"]</h1>
+
+<div class="table-responsive">
+    <table class="table mt-5">
+        <thead>
+            <tr>
+                <th scope="col">@Localizer["IdTitle"]</th>
+                <th scope="col">@Localizer["ProductNameTitle"]</th>
+                <th scope="col">@Localizer["ShippingTitle"]</th>
+                <th scope="col">@Localizer["PaymentMethodTitle"]</th>
+                <th scope="col">@Localizer["TransactionIdTitle"]</th>
+                <th scope="col">@Localizer["TotalTitle"]</th>
+            </tr>
+        </thead>
+        <tbody>
+        <th scope="row" class="fw-normal">@Model.Id</th>
+        <th scope="row">
+            @{
+                foreach (var product in Model.CartProducts)
+                {
+                    <div class="mt-2">
+                        <div class="">
+                            <p class="fw-normal">@index. @product.Product.Name</p>
+                            <p class="fw-normal">x @product.Quantity</p>
+                        </div>
+                    </div>
+                    index++;
+                }
+            }
+        </th>
+        <th scope="row" class="fw-normal">@Model.Shipping</th>
+        <th scope="row" class="fw-normal">@Model.PaymentMethod</th>
+        <th scope="row" class="fw-normal">@Model.TransactionId</th>
+        <th scope="row" class="fs-4">@Model.Total</th>
+        </tbody>
+    </table>
+</div>
+

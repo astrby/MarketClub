@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35825.156
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketClubApi", "MarketClubApi\MarketClubApi.csproj", "{44662BF2-F007-4CF5-BBC0-130C4DBAAE3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketClubMvc", "MarketClubMvc\MarketClubMvc.csproj", "{22AF3EEA-55E9-410C-AC02-9AC9976295A6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{44662BF2-F007-4CF5-BBC0-130C4DBAAE3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44662BF2-F007-4CF5-BBC0-130C4DBAAE3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44662BF2-F007-4CF5-BBC0-130C4DBAAE3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44662BF2-F007-4CF5-BBC0-130C4DBAAE3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22AF3EEA-55E9-410C-AC02-9AC9976295A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22AF3EEA-55E9-410C-AC02-9AC9976295A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22AF3EEA-55E9-410C-AC02-9AC9976295A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22AF3EEA-55E9-410C-AC02-9AC9976295A6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FAF3F895-E5A2-4A10-82A1-4F3BAC64E4DF}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,73 @@
+﻿@model IEnumerable<MarketClubMvc.Models.CartProduct>
+@using Microsoft.AspNetCore.Mvc.Localization;
+
+@inject IHttpContextAccessor _httpContext;
+@inject IViewLocalizer Localizer;
+
+@{
+    ViewData["Title"] = "Cart";
+    var index = 0;
+    float totalPrice = 0;
+    var user = _httpContext.HttpContext!.Session.GetString("token");
+}
+
+<h1 class="text-center mt-3">@Localizer["CartTitle"]</h1>
+<table class="table mt-5">
+    <thead>
+        <tr>
+            <th>
+                @Localizer["ProductsTitle"]
+            </th>
+            <th class="text-center">
+                @Localizer["QuantityTitle"]
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    <p>@item.Product.Name</p>
+                    <p>@item.Product.Description</p>
+                    <p>Price: $@item.Product.Price</p>
+                    <img src="@item.Product.ImageUri?v=@DateTime.UtcNow.Ticks" style="width: 4rem; height: 4rem"/>
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td class="text-end">
+                    <form asp-action="DeleteCartItem" asp-controller="Product">
+                        <input name="cartItemIndex" type="hidden" value="@index"/>
+                        <button class="btn btn-danger" type="submit">@Localizer["DeleteButton"]</button>
+                    </form>
+                </td>
+            </tr>
+            index++;
+            totalPrice = totalPrice + (item.Product.Price * item.Quantity);
+        }
+    </tbody>
+</table>
+
+@if (totalPrice !=0)
+{
+    <div class="mt-5 ">
+        <div class="d-flex justify-content-center">
+            <h4 class="">Total: $@totalPrice</h4>
+        </div>
+        <div class="d-flex justify-content-center mt-4">
+            @if (user == null)
+            {
+                <div class="d-flex flex-column">
+                    <a class="btn btn-success" asp-action="Checkout" asp-controller="Order">@Localizer["CheckoutAsGuestButton"]</a>
+                    <a class="btn btn-info mt-2" asp-action="Login" asp-controller="Account">@Localizer["LoginButton"]</a>
+                </div>
+            }
+            else
+            {
+                <a class="btn btn-success w-25" asp-action="Checkout" asp-controller="Order">Checkout</a>
+            }
+        </div>
+    </div>
+}
+
