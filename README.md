@@ -36,6 +36,7 @@ Administrator:
 - RESTful APIs.
 - SQL Server Database.
 - Azure (Website and API hosting - Images and Database storage).
+- C#.
 - CSS.
 - JavaScript.
 - Bootstrap.
