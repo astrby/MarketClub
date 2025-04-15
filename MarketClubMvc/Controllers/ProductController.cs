@@ -1,4 +1,5 @@
 ﻿using MarketClubMvc.Models;
+using MarketClubMvc.Models.ModelsDto;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using Newtonsoft.Json;
@@ -62,17 +63,45 @@ namespace MarketClubMvc.Controllers
         }
 
         [HttpGet]
-        public IActionResult Cart()
+        public async Task<IActionResult> Cart()
         {
             try
             {
-                List<CartProduct> cartProducts = new List<CartProduct>();
+                List<CartProductDto> cartProductsDto = new List<CartProductDto>();
 
                 var cartSession = HttpContext.Session.GetString("cart");
 
+                var lang = "es";
+
+                if (Request.Cookies.TryGetValue("Language", out string value))
+                {
+                    lang = value;
+                }
+
                 if (cartSession != null)
                 {
-                    cartProducts = JsonConvert.DeserializeObject<List<CartProduct>>(cartSession!)!;
+                    cartProductsDto = JsonConvert.DeserializeObject<List<CartProductDto>>(cartSession);
+
+                    List<CartProduct> cartProducts = new List<CartProduct>();
+
+                    foreach (var p in cartProductsDto)
+                    {
+                        HttpResponseMessage response = await _client.GetAsync(_client.BaseAddress+ "/ProductApi/GetProduct/" + lang+"/"+p.Id);
+                        
+                        if (response.IsSuccessStatusCode)
+                        {
+                            var responseData = await response.Content.ReadAsStringAsync();
+
+                            var product = JsonConvert.DeserializeObject<Product>(responseData);
+
+                            cartProducts.Add(new CartProduct
+                            {
+                                Id = p.Id,
+                                Product = product,
+                                Quantity = p.Quantity
+                            });
+                        }
+                    }
 
                     return View(cartProducts);
                 }
@@ -130,18 +159,18 @@ namespace MarketClubMvc.Controllers
                 {
                     var foundProductInCart = false;
 
-                    List<CartProduct> cartProducts = new List<CartProduct>();
+                    List<CartProductDto> cartProducts = new List<CartProductDto>();
 
                     var cartSession = HttpContext.Session.GetString("cart");
 
                     if (cartSession != null)
                     {
-                        cartProducts = JsonConvert.DeserializeObject<List<CartProduct>>(cartSession!)!;
+                        cartProducts = JsonConvert.DeserializeObject<List<CartProductDto>>(cartSession!)!;
                     }
 
-                    foreach(CartProduct p in cartProducts)
+                    foreach(CartProductDto p in cartProducts)
                     {
-                        if (p.Product.Id == product.Id)
+                        if (p.ProductId == product.Id)
                         {
                             p.Quantity = p.Quantity + 1;
 
@@ -151,10 +180,10 @@ namespace MarketClubMvc.Controllers
 
                     if(foundProductInCart == false)
                     {
-                        cartProducts.Add(new CartProduct()
+                        cartProducts.Add(new CartProductDto()
                         {
                             Id = cartProducts.ToArray().Length+1,
-                            Product = product,
+                            ProductId = product.Id,
                             Quantity = 1
                         });
                     }

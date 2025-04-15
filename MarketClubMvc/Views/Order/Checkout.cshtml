@@ -39,7 +39,7 @@
             <input asp-for ="PaymentMethod" class="form-check-input" type="radio" value="DebitCard" checked />
             <label for="DebitCard" class="ms-3">Debit Card</label>
         </div>
-        <h3 class="mt-5">Total: $@total</h3>
+            <h3 class="mt-5">Total: ₡@total</h3>
             @{
                 for(int i = 0; i<Model.CartProducts.Count; i++)
                 {

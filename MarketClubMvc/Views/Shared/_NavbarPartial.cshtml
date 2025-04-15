@@ -9,30 +9,54 @@
     var role = _httpContext.HttpContext.Session.GetString("userRole");
 }
 
-<div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
-    <partial name="~/Views/Shared/_CartPartial.cshtml"/>
-    @if (username != null)
-    {
-        <div>
+<div class="navbar-collapse collapse justify-content-end text-end">
+    <ul class="navbar-nav">
+        <span class="mt-4"></span>
+        <li class="nav-item active">
+            <partial name="~/Views/Shared/_CartPartial.cshtml" class="nav-link" />
+        </li>
+        <span class="mb-2 ms-3"></span>
+        @if (username != null)
+        {
             @if (role == "Admin")
             {
-
+            <li class="nav-item active">
                 <a class="btn" asp-controller="Admin" asp-action="NewProduct">@Localizer["NewProductButton"]</a>
+            </li>
+
+            <li class="nav-item active">
                 <a class="btn" asp-controller="Admin" asp-action="ManageProducts">@Localizer["ManageProductsButton"]</a>
+            </li>
+                    
             }
-            else if (role == "User")
-            {
-            }
-            <a asp-action="Orders" asp-controller="Order" class="btn">@Localizer["MyOrdersButton"]</a>
-            <a class="btn" asp-action="EditAccount" asp-controller="Account" asp-route-username="@username">@username</a>
-            <a class="btn btn-info" asp-action="Logout" asp-controller="Account">@Localizer["LogoutButton"]</a>
-        </div>
-    }
-    else
-    {
-        <div>
-            <a class="btn btn-info" asp-action="Login" asp-controller="Account">@Localizer["LoginButton"]</a>
-            <a class="btn btn-info" asp-action="Signup" asp-controller="Account">@Localizer["SignupButton"]</a>
-        </div>
-    }
+
+            <li class="nav-item active">
+                <a asp-action="Orders" asp-controller="Order" class="btn">@Localizer["MyOrdersButton"]</a>
+            </li>  
+            <li class="nav-item active">
+                <a class="btn border" asp-action="EditAccount" asp-controller="Account" asp-route-username="@username">@username</a>
+            </li>
+            <span class="mb-2"></span>
+            <li class="nav-item active">
+                <a class="btn btn-info" asp-action="Logout" asp-controller="Account">@Localizer["LogoutButton"]</a>
+            </li>     
+        }
+        else
+        {
+            <li class="nav-item active">
+                <a class="btn btn-info" asp-action="Login" asp-controller="Account">@Localizer["LoginButton"]</a>
+            </li>
+            <span class="ms-1 mt-1"></span>
+            <li class="nav-item active">
+                <a class="btn btn-info" asp-action="Signup" asp-controller="Account">@Localizer["SignupButton"]</a>
+            </li>
+        }
+        <span class="ms-1"></span>
+        <li class="nav-item active">
+            <a class="btn btn-sm text-black" asp-action="ChangeLanguage" asp-controller="Home" asp-route-lang="es">ES</a>
+        </li>
+        <li class="nav-item active">
+            <a class="btn btn-sm text-black" asp-action="ChangeLanguage" asp-controller="Home" asp-route-lang="en">EN</a>
+        </li>
+    </ul>
 </div>

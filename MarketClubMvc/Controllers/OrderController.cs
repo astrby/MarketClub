@@ -30,16 +30,44 @@ namespace MarketClubMvc.Controllers
         }
 
         [HttpGet]
-        public IActionResult Checkout()
+        public async Task<IActionResult> Checkout()
         {
             try
             {
                 var cartSession = HttpContext.Session.GetString("cart");
-                List<CartProductDto> cartProducts = new List<CartProductDto>();
+                List<CartProductDto> cartProductsDto = new List<CartProductDto>();
+
+                List<CartProduct> cartProducts = new List<CartProduct>();
 
                 if (cartSession != null)
                 {
-                    cartProducts = JsonConvert.DeserializeObject<List<CartProductDto>>(cartSession!)!;
+                    cartProductsDto = JsonConvert.DeserializeObject<List<CartProductDto>>(cartSession!)!;
+
+                    var lang = "en";
+
+                    if (Request.Cookies.TryGetValue("Language", out string value))
+                    {
+                        lang = value;
+                    }
+
+                    foreach (CartProductDto p in cartProductsDto)
+                    {
+                        HttpResponseMessage response = await _client.GetAsync(_client.BaseAddress+ "/ProductApi/GetProduct/" + lang+"/"+p.Id);
+
+                        if (response.IsSuccessStatusCode)
+                        {
+                            var responseData = await response.Content.ReadAsStringAsync();
+
+                            var product = JsonConvert.DeserializeObject<Models.Product>(responseData);
+
+                            cartProducts.Add(new CartProduct
+                            {
+                                Id = p.Id,
+                                Product = product,
+                                Quantity = p.Quantity
+                            });
+                        }
+                    }
                 }
 
                 OrderDto order = new OrderDto()
@@ -136,11 +164,39 @@ namespace MarketClubMvc.Controllers
                     var shipping = HttpContext.Session.GetString("shipping");
                     var paymentMethod = HttpContext.Session.GetString("paymentMethod");
 
-                    List<CartProductDto> cartProducts = new List<CartProductDto>();
+                    List<CartProductDto> cartProductsDto = new List<CartProductDto>();
+
+                    List<CartProduct> cartProducts = new List<CartProduct>();
 
                     if (cartSession != null)
                     {
-                        cartProducts = JsonConvert.DeserializeObject<List<CartProductDto>>(cartSession!)!;
+                        cartProductsDto = JsonConvert.DeserializeObject<List<CartProductDto>>(cartSession!)!;
+
+                        var lang = "en";
+
+                        if (Request.Cookies.TryGetValue("Language", out string value))
+                        {
+                            lang = value;
+                        }
+
+                        foreach (CartProductDto p in cartProductsDto)
+                        {
+                            HttpResponseMessage responseProducts = await _client.GetAsync(_client.BaseAddress + "/ProductApi/GetProduct/" + lang + "/" + p.Id);
+
+                            if (responseProducts.IsSuccessStatusCode)
+                            {
+                                var responseData = await responseProducts.Content.ReadAsStringAsync();
+
+                                var product = JsonConvert.DeserializeObject<Models.Product>(responseData);
+
+                                cartProducts.Add(new CartProduct
+                                {
+                                    Id = p.Id,
+                                    Product = product,
+                                    Quantity = p.Quantity
+                                });
+                            }
+                        }
 
                         OrderDto order = new OrderDto()
                         {
@@ -244,7 +300,7 @@ namespace MarketClubMvc.Controllers
         {
             var token = HttpContext.Session.GetString("token");
 
-            var lang = "es";
+            var lang = "en";
 
             if (Request.Cookies.TryGetValue("Language", out string value))
             {
@@ -258,9 +314,7 @@ namespace MarketClubMvc.Controllers
             {
                 var responseData = await response.Content.ReadAsStringAsync();
 
-                Order order = new Order();
-
-                order = JsonConvert.DeserializeObject<Order>(responseData)!;
+                var order = JsonConvert.DeserializeObject<Order>(responseData)!;
 
                 return View(order);
             }

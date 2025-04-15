@@ -2,7 +2,7 @@
 {
     public class OrderDto
     {
-        public List<CartProductDto> CartProducts { get; set; }
+        public List<CartProduct> CartProducts { get; set; }
 
         public string Shipping { get; set; }
         public float Total { get; set; }

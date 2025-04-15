@@ -19,7 +19,7 @@
                     <div class="card-body text-center">
                         <h5 class="card-title overflow-hidden" style="height: 3rem">@item.Name</h5>
                         <p class="card-text overflow-auto" style="height: 3rem">@item.Description</p>
-                        <p class="card-footer w-100 mx-auto overflow-hidden rounded" style="height: 3rem">@Localizer["PriceTitle"]: $@item.Price</p>
+                        <p class="card-footer w-100 mx-auto overflow-hidden rounded" style="height: 3rem">@Localizer["PriceTitle"]: ₡@item.Price</p>
                         <form asp-action="AddProductToCart" asp-controller="Product">
                             <input type="hidden" name="Id" value="@item.Id"/>
                             <input type="hidden" name="Name" value="@item.Name" />
