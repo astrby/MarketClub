@@ -12,7 +12,7 @@ Link: https://marketclubmvc-crhheshzgzg5g0af.italynorth-01.azurewebsites.net/
 
 ## Description
 
-MarketClub is a fullstack Ecommerce website (in English and Spanish) hosted in Microsoft Azure . Each user account data is secured with JWT tokens and password encryption. Dependin on the role, each user can perform different actions:
+MarketClub is a fullstack Ecommerce website (in English and Spanish) hosted in Microsoft Azure . Each user account data is secured with JWT tokens and password encryption. Depending on the role, each user can perform different actions:
 
 User:
 - Create an account Login.
