@@ -58,7 +58,7 @@ namespace MarketClubMvc.Controllers
             catch (Exception ex)
             {
                 TempData["errorMessage"] = _stringLocalizer["ExceptionError"].Value + ex.Message;
-                return Redirect(Request.GetTypedHeaders().Referer!.ToString());
+                return View();
             }
         }
 

@@ -8,7 +8,7 @@
 
 Fullstack ( ASP .NET MVC-API || SQL Database || Azure ) ecommerce service with Stripe payment integration.
 
-Link: https://marketclubmvc-crhheshzgzg5g0af.italynorth-01.azurewebsites.net/
+Link: http://marketclubmvc.somee.com/
 
 ## Description
 

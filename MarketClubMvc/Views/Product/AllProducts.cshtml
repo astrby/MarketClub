@@ -11,26 +11,29 @@
 
 <div class="container">
     <div class="row gap-4 justify-content-center">
-        @foreach (var item in Model)
+        @if(Model != null)
         {
-            <div class="col-12 col-md-6 col-lg-2 d-flex justify-content-center">
-                <div class="card" style="width: 20rem">
-                    <img class="card-img-top" src="@item.ImageUri?v=@DateTime.Now.Ticks" style="height: 10rem" />
-                    <div class="card-body text-center">
-                        <h5 class="card-title overflow-hidden" style="height: 3rem">@item.Name</h5>
-                        <p class="card-text overflow-auto" style="height: 3rem">@item.Description</p>
-                        <p class="card-footer w-100 mx-auto overflow-hidden rounded" style="height: 3rem">@Localizer["PriceTitle"]: ₡@item.Price</p>
-                        <form asp-action="AddProductToCart" asp-controller="Product">
-                            <input type="hidden" name="Id" value="@item.Id"/>
-                            <input type="hidden" name="Name" value="@item.Name" />
-                            <input type="hidden" name="Description" value="@item.Description" />
-                            <input type="hidden" name="Price" value="@item.Price" />
-                            <input type="hidden" name="ImageUri" value="@item.ImageUri" />
-                            <button class="btn btn-info" type="submit">@Localizer["AddToCartButton"]</button>
-                        </form>
+            @foreach (var item in Model)
+            {
+                <div class="col-12 col-md-6 col-lg-2 d-flex justify-content-center">
+                    <div class="card" style="width: 20rem">
+                        <img class="card-img-top" src="@item.ImageUri?v=@DateTime.Now.Ticks" style="height: 10rem" />
+                        <div class="card-body text-center">
+                            <h5 class="card-title overflow-hidden" style="height: 3rem">@item.Name</h5>
+                            <p class="card-text overflow-auto" style="height: 3rem">@item.Description</p>
+                            <p class="card-footer w-100 mx-auto overflow-hidden rounded" style="height: 3rem">@Localizer["PriceTitle"]: ₡@item.Price</p>
+                            <form asp-action="AddProductToCart" asp-controller="Product">
+                                <input type="hidden" name="Id" value="@item.Id" />
+                                <input type="hidden" name="Name" value="@item.Name" />
+                                <input type="hidden" name="Description" value="@item.Description" />
+                                <input type="hidden" name="Price" value="@item.Price" />
+                                <input type="hidden" name="ImageUri" value="@item.ImageUri" />
+                                <button class="btn btn-info" type="submit">@Localizer["AddToCartButton"]</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div> 
+            }
         }
     </div>
 </div>

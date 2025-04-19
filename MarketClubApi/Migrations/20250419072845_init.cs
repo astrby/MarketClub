@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MarketClubApi.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -84,6 +84,22 @@ namespace MarketClubApi.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_products", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "productTranslations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Language = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_productTranslations", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -289,6 +305,9 @@ namespace MarketClubApi.Migrations
 
             migrationBuilder.DropTable(
                 name: "cartProducts");
+
+            migrationBuilder.DropTable(
+                name: "productTranslations");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
