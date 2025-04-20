@@ -54,6 +54,40 @@ namespace MarketClubApi.Controllers
             }
         }
 
+        [HttpGet("{lang}/{search}")]
+        public async Task<IActionResult> GetProductResults(string lang, string search)
+        {
+            try
+            {
+                if (lang == "en")
+                {
+                    List<Product> products = await _context.products.Where(p => p.Name.Contains(search)).ToListAsync();
+
+                    return Ok(products);
+                }
+
+                List<Product> productsTranslated = new List<Product>();
+
+                List<ProductTranslation> productTranslations = await _context.productTranslations.Where(p => p.Name.Contains(search) && p.Language == lang).ToListAsync();
+
+                foreach (var pt in productTranslations)
+                {
+                    var product = await _context.products.FirstOrDefaultAsync(p => p.Id == pt.ProductId);
+
+                    product.Name = pt.Name;
+                    product.Description = pt.Description;
+
+                    productsTranslated.Add(product);
+                }
+
+                return Ok(productsTranslated);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpGet("{lang}/{id}")]
         public async Task<IActionResult> GetProduct(int id, string lang)
         {

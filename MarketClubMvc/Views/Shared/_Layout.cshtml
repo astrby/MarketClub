@@ -10,12 +10,13 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 pt-3">
             <div class="container-fluid">
                 <a asp-controller="Product" asp-action="AllProducts" class="d-flex text-decoration-none">
                     <img src="/images/logo.png" style="height:2.5rem; width:3.5rem"/>
                     <h4 class="text-black mt-1 ms-2">MarketClub</h4>
                 </a>
+                <partial name="~/Views/Shared/_SearchbarPartial.cshtml"/>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                 aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>

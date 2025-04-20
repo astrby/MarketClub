@@ -62,6 +62,37 @@ namespace MarketClubMvc.Controllers
             }
         }
 
+        public async Task<IActionResult> ProductResults(string search)
+        {
+            try
+            {
+                var lang = "en";
+
+                if (Request.Cookies.TryGetValue("Language", out string value))
+                {
+                    lang = value;
+                }
+
+                HttpResponseMessage response = await _client.GetAsync(_client.BaseAddress + "/ProductApi/GetProductResults/" + lang + "/" + search);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseData = await response.Content.ReadAsStringAsync();
+
+                    List<Product> products = JsonConvert.DeserializeObject<List<Product>>(responseData)!;
+
+                    return View(products);
+                }
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                TempData["errorMessage"] = _stringLocalizer["ExceptionError"].Value + ex.Message;
+                return View();
+            }
+        }
+
         [HttpGet]
         public async Task<IActionResult> Cart()
         {

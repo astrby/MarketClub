@@ -4,14 +4,14 @@
 @inject IViewLocalizer Localizer;
 
 @{
-    ViewData["Title"] = "AllProducts";
+    ViewData["Title"] = "Search Results";
 }
 
 <h1 class="text-center mt-5 mb-5">@Localizer["ProductsTitle"]</h1>
 
 <div class="container justify-content-center mb-5">
     <div class="row">
-        @if(Model != null)
+        @if (Model != null)
         {
             @foreach (var item in Model)
             {
